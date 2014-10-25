@@ -10,7 +10,7 @@ Totalgraph::Application.routes.draw do
   # root 'welcome#index'
    root 'static_pages#home'
    get 'about'   => 'static_pages#about'
-   get 'play'   => 'static_pages#play'
+   get 'sandbox'   => 'static_pages#sandbox'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
