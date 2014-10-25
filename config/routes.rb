@@ -1,4 +1,6 @@
 Totalgraph::Application.routes.draw do
+  get 'sessions/new'
+
   get 'users/new'
 
   get 'static_pages/home'
@@ -10,11 +12,14 @@ Totalgraph::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
-   root 'static_pages#home'
-   get 'about'   => 'static_pages#about'
-   get 'sandbox'   => 'static_pages#sandbox'
-   get 'signup'  => 'users#new' 
-   resources :users
+  root 'static_pages#home'
+  get 'about'   => 'static_pages#about'
+  get 'sandbox'   => 'static_pages#sandbox'
+  get 'signup'  => 'users#new' 
+  get    'login'   => 'sessions#new'
+  post   'login'   => 'sessions#create'
+  delete 'logout'  => 'sessions#destroy'
+  resources :users
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
