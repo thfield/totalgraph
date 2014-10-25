@@ -23,13 +23,4 @@ ActiveRecord::Schema.define(version: 20141025200439) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
 
-  create_table "weights", force: true do |t|
-    t.integer  "total"
-    t.integer  "p_fat"
-    t.integer  "fat"
-    t.integer  "lean"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
 end

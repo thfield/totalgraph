@@ -13,7 +13,8 @@ Totalgraph::Application.routes.draw do
    root 'static_pages#home'
    get 'about'   => 'static_pages#about'
    get 'sandbox'   => 'static_pages#sandbox'
-   get 'signup'  => 'users#new'
+   get 'signup'  => 'users#new' 
+   resources :users
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
