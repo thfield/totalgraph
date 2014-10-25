@@ -1,4 +1,6 @@
 Totalgraph::Application.routes.draw do
+  get 'users/new'
+
   get 'static_pages/home'
 
   get 'static_pages/about'
@@ -11,6 +13,7 @@ Totalgraph::Application.routes.draw do
    root 'static_pages#home'
    get 'about'   => 'static_pages#about'
    get 'sandbox'   => 'static_pages#sandbox'
+   get 'signup'  => 'users#new'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
