@@ -19,6 +19,10 @@ class WeightsController < ApplicationController
     redirect_to request.referrer || root_url
   end
 
+  def edit
+    
+  end
+
   private
 
     def weight_params

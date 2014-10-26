@@ -1,6 +1,13 @@
 <% if @feed_items.any? %>
-  <ol class="weights">
+  <table class="weights table">
+  	<th>date</th>
+    <th>total</th>
+    <th>% fat</th>
+    <th>fat</th>
+    <th>lean</th>
+    <th></th>
+    <th></th>
     <%= render @feed_items %>
-  </ol>
+  </table>
   <%= will_paginate @feed_items %>
 <% end %>

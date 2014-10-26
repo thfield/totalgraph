@@ -1,5 +1,7 @@
 <% if logged_in? %>
-<% provide(:title, current_user.name) %>
+<%= stylesheet_link_tag    "charts", media: "all", "data-turbolinks-track" => true %>
+<%= javascript_include_tag "drawcharts", "data-turbolinks-track" => true %>
+  <% provide(:title, current_user.name) %>
   <div class="row">
     <aside class="col-md-4">
       <section class="user_info">
@@ -10,19 +12,24 @@
       </section>
     </aside>
     <div class="col-md-8">
+      <h3>Chart</h3>
+      <%= render 'shared/weight_chart' %>
+    </div>
+    <div class="col-md-8 pull-right">
       <h3>Entries</h3>
       <%= render 'shared/feed' %>
     </div>
   </div>
-<% else %>
-<% provide(:title, "Home") %>
-<div class="center jumbotron">
-  <h1>TotalGraph</h1>
 
-  <h2>
-    aka totalfitness
-  </h2>
-  <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
-  <%= link_to image_tag("logo.png", alt: "Logo"), sandbox_path %>
-</div>
+<% else %>
+  <% provide(:title, "Home") %>
+  <div class="center jumbotron">
+    <h1>TotalGraph</h1>
+
+    <h2>
+      aka totalhealth
+    </h2>
+    <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+    <%= link_to image_tag("logo.png", alt: "Logo"), sandbox_path %>
+  </div>
 <% end %>

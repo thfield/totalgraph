@@ -10,5 +10,6 @@ class Weight < ActiveRecord::Base
   def compute_values
   	self.fat = total * pfat/100
   	self.lean = total - self.fat
+    self.date ||= self.created_at.to_formatted_s(:short)
   end
 end

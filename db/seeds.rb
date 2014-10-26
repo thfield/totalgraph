@@ -25,11 +25,13 @@ User.create!(name:  "Example User",
                activated_at: Time.zone.now)
 end
 
-users = User.order(:created_at).take(6)
-20.times do
+users = User.order(:created_at).take(3)
+50.times do |i|
   total = 100 + rand(50)
   pfat = 10 + rand(10)
   fat = total * pfat /100
   lean = total - fat
-  users.each { |user| user.weights.create!(total: total, pfat:pfat, fat:fat, lean:lean) }
+  spooftime = i.days.ago
+  date =spooftime.to_formatted_s(:short)
+  users.each { |user| user.weights.create!(total: total, pfat:pfat, fat:fat, lean:lean, date:date, created_at:spooftime) }
 end
