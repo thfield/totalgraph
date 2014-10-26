@@ -24,3 +24,12 @@ User.create!(name:  "Example User",
                activated: true,
                activated_at: Time.zone.now)
 end
+
+users = User.order(:created_at).take(6)
+20.times do
+  total = 100 + rand(50)
+  pfat = 10 + rand(10)
+  fat = total * pfat /100
+  lean = total - fat
+  users.each { |user| user.weights.create!(total: total, pfat:pfat, fat:fat, lean:lean) }
+end

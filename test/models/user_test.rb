@@ -63,4 +63,12 @@ class UserTest < ActiveSupport::TestCase
   test "authenticated? should return false for a user with nil digest" do
     assert_not @user.authenticated?(:remember, '')
   end
+
+  test "associated weights should be destroyed" do
+    @user.save
+    @user.weights.create!(total: 100, pfat:10)
+    assert_difference 'Weight.count', -1 do
+      @user.destroy
+    end
+  end
 end

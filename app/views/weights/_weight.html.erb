@@ -1,0 +1,12 @@
+<li id="weight-<%= weight.id %>">
+  
+  <span class="timestamp"><%= weight.created_at.strftime("%B %d at %I:%M %p") %></span>
+  <span class="weight_total"><%= weight.total %>lbs</span>
+  <span class="weight_pfat"><%= weight.pfat %>%</span>
+  <span class="weight_fat"><%= weight.fat %>lbs</span>
+  <span class="weight_lean"><%= weight.lean %>lbs</span>
+  <% if current_user?(weight.user) %>
+    <%= link_to "delete", weight, method: :delete, data: { confirm: "You sure?" } %>
+  <% end %>
+
+</li>

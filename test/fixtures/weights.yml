@@ -1,0 +1,41 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  total: 1
+  pfat: 1
+  fat: 1
+  lean: 1
+  created_at: <%= 10.minutes.ago %>
+  user: archer
+
+two:
+  total: 1
+  pfat: 1
+  fat: 1
+  lean: 1
+  created_at: <%= 3.years.ago %>
+  user: archer
+
+most_recent:
+  total: 1
+  pfat: 1
+  fat: 1
+  lean: 1
+  created_at: <%= Time.zone.now %>
+  user: lana
+
+three:
+  total: 1
+  pfat: 1
+  fat: 1
+  lean: 1
+  created_at: <%= 2.hours.ago %>
+  user: lana
+
+four:
+  total: 1
+  pfat: 1
+  fat: 1
+  lean: 1
+  created_at: <%= 24.hours.ago %>
+  user: lana
