@@ -1,8 +1,9 @@
 <%= form_for(@weight) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
-  <div class="field">
+  <div class="field col-md-4">
     Weight (lbs): <%= f.number_field :total %>
     Body Fat (%): <%= f.number_field :pfat %>
+  	<%= f.submit "Enter", class: "btn btn-primary" %>
   </div>
-  <%= f.submit "Enter", class: "btn btn-primary" %>
+  
 <% end %>
