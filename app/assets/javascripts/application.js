@@ -14,3 +14,5 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require turbolinks
+//= require d3.min
+//= require nv.d3.min
