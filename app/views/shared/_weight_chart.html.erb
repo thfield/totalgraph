@@ -1,94 +1,73 @@
+<div class="sparkline" id="spark_pfat"><h3>%Fat</h3></div>
+<div class="linechart" id="weightchart"><h3>Weight</h3></div>
 
-<div class="chart" id="weightchart"></div>
 <script>
-	var margin = {top: 20, right: 80, bottom: 30, left: 50},
-	  width = 700 - margin.left - margin.right,
-	  height = 500 - margin.top - margin.bottom;
+  d3.json("<%= user_path(current_user) %>.json", function(error, data) {  
+    var parseDate = d3.time.format("%a, %d %b %Y %H:%M:%S %Z").parse;    
+    data.forEach(function(d) { d.date = parseDate(d.date); });
 
-	var parseDate = d3.time.format("%d %b %H:%M").parse;
-	
+    nv.addGraph(function() {
+      var series = d3.scale.category10();
+      series.domain(d3.keys(data[0]).filter(function(key) { return key !== "date" && key !== "pfat"; }));
 
-	var x = d3.time.scale()
-	    .range([0, width]);
+      var pData = series.domain().map(function(name) {
+        return {
+          key: name,
+          values: data.map(function(d) {
+            return {x: d.date, y: +d[name]};
+          })
+        };
+      });
 
-	var y = d3.scale.linear()
-	    .range([height, 0]);
+      var chart = nv.models.lineWithFocusChart();
 
-	var color = d3.scale.category10();
+      chart.forceY[0];
+      
+      chart.xAxis
+          .tickFormat(function(d) {
+            return d3.time.format("%H:%M %b %e")(new Date(d))
+          });
 
-	var xAxis = d3.svg.axis()
-	    .scale(x)
-	    .orient("bottom");
+      chart.x2Axis
+          .tickFormat(function(d) {
+            return d3.time.format("%b %e")(new Date(d))
+          });    
 
-	var yAxis = d3.svg.axis()
-	    .scale(y)
-	    .orient("left");
+      chart.yAxis
+          .tickFormat(d3.format(',f'));
 
-	var line = d3.svg.line()
-	    .interpolate("basis")
-	    .x(function(d) { return x(d.date); })
-	    .y(function(d) { return y(d.yVal); });
+      chart.y2Axis
+          .tickFormat(d3.format(',f'));
 
-	var svg = d3.select("#weightchart").append("svg")
-	    .attr("width", width + margin.left + margin.right)
-	    .attr("height", height + margin.top + margin.bottom)
-	  .append("g")
-	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      d3.select('#weightchart').append("svg")
+          .datum(pData)
+          .transition().duration(500)
+          .call(chart);
 
-	d3.json("<%= user_path(current_user) %>.json", function(error, data) {
-	  color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
+      nv.utils.windowResize(chart.update);
 
-	  data.forEach(function(d) {
-	    d.date = parseDate(d.date);
-	  });
+      return chart;
+    });
 
-	  var series = color.domain().map(function(name) {
-	    return {
-	      name: name,
-	      values: data.map(function(d) {
-	        return {date: d.date, yVal: +d[name]};
-	      })
-	    };
-	  });
+      
+  nv.addGraph(function() {
+    var pData = data.map(function(d) { return {x: d.date, y: d.pfat}; });
+    var chart = nv.models.sparklinePlus()
 
-	  x.domain(d3.extent(data, function(d) { return d.date; }));
+    chart
+      .margin({left:70})
+      .x(function(d,i) { return i })
+      .xTickFormat(function(d) {
+        return d3.time.format("%x")(new Date(pData[d].x))
+      })
 
-	  y.domain([
-	    d3.min(series, function(c) { return d3.min(c.values, function(v) { return v.yVal; }); }),
-	    d3.max(series, function(c) { return d3.max(c.values, function(v) { return v.yVal; }); })
-	  ]);
+    d3.select('#spark_pfat').append('svg')
+        .datum(pData)
+      .transition().duration(250)
+        .call(chart);
 
-	  svg.append("g")
-	      .attr("class", "x axis")
-	      .attr("transform", "translate(0," + height + ")")
-	      .call(xAxis);
+      return chart;
+  });
+});
 
-	  svg.append("g")
-	      .attr("class", "y axis")
-	      .call(yAxis)
-	    .append("text")
-	      .attr("transform", "rotate(-90)")
-	      .attr("y", 6)
-	      .attr("dy", ".71em")
-	      .style("text-anchor", "end")
-	      .text("lbs");
-
-	  var categ = svg.selectAll(".categ")
-	      .data(series)
-	    .enter().append("g")
-	      .attr("class", "categ");
-
-	  categ.append("path")
-	      .attr("class", "line")
-	      .attr("d", function(d) { return line(d.values); })
-	      .style("stroke", function(d) { return color(d.name); });
-
-	  categ.append("text")
-	      .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
-	      .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.yVal) + ")"; })
-	      .attr("x", 3)
-	      .attr("dy", ".35em")
-	      .text(function(d) { return d.name; });
-	});
 </script>
-

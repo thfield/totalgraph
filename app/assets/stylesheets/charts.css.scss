@@ -1,3 +1,5 @@
+//= require 'nv.d3.min'
+
 .axis path,
 .axis line {
   fill: none;
@@ -13,4 +15,12 @@
   fill: none;
   stroke: steelblue;
   stroke-width: 1.5px;
+}
+
+.linechart {
+	height: 500px;
+	margin-bottom: 2em;
+}
+.sparkline {
+	margin-top: 1em;
 }

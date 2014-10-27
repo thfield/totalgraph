@@ -1,8 +1,4 @@
 Totalgraph::Application.routes.draw do
-  get 'password_resets/new'
-
-  get 'password_resets/edit'
-
   root                   'static_pages#home'
   get     'about'     => 'static_pages#about'
   get     'sandbox'   => 'static_pages#sandbox'
