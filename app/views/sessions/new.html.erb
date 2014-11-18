@@ -1,16 +1,17 @@
 <% provide(:title, "Log in") %>
 <h1>Log in</h1>
+<p> Log in as "example-1@railstutorial.org" with password "password" to give this a try </p>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(:session, url: login_path) do |f| %>
 
       <%= f.label :email %>
-      <%= f.text_field :email %>
+      <%= f.text_field :email, :value => 'example-1@railstutorial.org' %>
 
       <%= f.label :password %>
       <%= link_to "(forgot password)", new_password_reset_path %>
-      <%= f.password_field :password %>
+      <%= f.password_field :password, :value => 'password' %>
 
       <%= f.label :remember_me, class: "checkbox inline" do %>
         <%= f.check_box :remember_me %>
