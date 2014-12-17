@@ -20,8 +20,22 @@ class WeightsController < ApplicationController
   end
 
   def edit
-    
+    @weight = Weight.find(params[:id])
   end
+
+  def update
+    @weight = Weight.find(params[:id])
+    if @weight.update_attributes(weight_params)
+      flash[:success] = "Entry updated"
+      redirect_to root_url
+    else
+      render 'edit'
+    end
+  end
+
+  def show
+  end
+
 
   private
 

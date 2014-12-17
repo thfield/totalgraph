@@ -6,7 +6,7 @@
   <td><%= weight.fat %>lbs</td>
   <td><%= weight.lean %>lbs</td>
   <% if current_user?(weight.user) %>
-    <td><span class="glyphicon glyphicon-pencil"></span></td>     
+    <td><%= link_to '<span class="glyphicon glyphicon-pencil"></span>'.html_safe, edit_weight_path(weight.id) %></td>     
     <td><%= link_to '<span class="glyphicon glyphicon-remove-circle"></span>'.html_safe, weight, method: :delete, data: { confirm: "Permanently delete?" } %></td>
   <% end %>
 
