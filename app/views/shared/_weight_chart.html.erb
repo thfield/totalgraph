@@ -2,9 +2,10 @@
 <div class="linechart" id="weightchart"><h3>Weight</h3></div>
 
 <script>
+  
   d3.json("<%= user_path(current_user) %>.json", function(error, data) {  
-    var parseDate = d3.time.format("%a, %d %b %Y %H:%M:%S %Z").parse;    
-    data.forEach(function(d) { d.date = parseDate(d.date); });
+    
+    data.forEach(function(d) { d.date = new Date(d.date); });
 
     nv.addGraph(function() {
       var series = d3.scale.category10();
@@ -53,13 +54,15 @@
   nv.addGraph(function() {
     var pData = data.map(function(d) { return {x: d.date, y: d.pfat}; });
     var chart = nv.models.sparklinePlus()
-
+ 
     chart
       .margin({left:70})
+      .yTickFormat(d3.format('f'))
       .x(function(d,i) { return i })
       .xTickFormat(function(d) {
         return d3.time.format("%x")(new Date(pData[d].x))
       })
+
 
     d3.select('#spark_pfat').append('svg')
         .datum(pData)

@@ -32,6 +32,6 @@ users = User.order(:created_at).take(3)
   fat = total * pfat /100
   lean = total - fat
   spooftime = i.days.ago
-  date = spooftime.to_formatted_s(:rfc822)
+  date = spooftime #.to_formatted_s(:rfc822)
   users.each { |user| user.weights.create!(total: total, pfat:pfat, fat:fat, lean:lean, date:date, created_at:spooftime) }
 end
